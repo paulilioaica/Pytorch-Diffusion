@@ -33,7 +33,8 @@ This will start the training process and log metrics to W&B for easy tracking an
 # 📈 Experiment Tracking
 This project integrates with W&B for experiment tracking and visualization. You can view your experiment runs in the W&B dashboard 📊 by logging in with your W&B account credentials:
 
-```wandb login
+```
+wandb login
 ```
 
 You can then view your experiment runs in the dashboard by navigating to the project page and selecting the relevant runs.
