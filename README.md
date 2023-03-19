@@ -13,8 +13,9 @@ A diffusion model is a type of generative model that learns to generate samples 
 To get started with this project, you can clone the repository and install the necessary dependencies using pip:
 
 
-```git clone https://github.com/your_username/your_project.git
-cd your_project
+```
+git clone https://github.com/paulilioaica/Pytorch-Diffusion
+cd Pytorch-Diffusion
 pip install -r requirements.txt
 ```
 
