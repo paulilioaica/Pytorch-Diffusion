@@ -24,13 +24,13 @@ wandb.init(
 
 
 class Trainer():
-    def __init__(self, model, dataloader, loss, optimizer, device="cuda", T=300) -> None:
+    def __init__(self, model, dataloader, loss, optimizer, batch_size, device="cuda", T=300) -> None:
         self.model = model.to(device)
         self.dataloader = dataloader
         self.device = device
         self.loss = loss
         self.optimizer = optimizer
-
+        self.batch_size = batch_size
 
         # Define beta schedule    
         # Pre-calculate different terms for closed form
@@ -82,6 +82,7 @@ class Trainer():
 
     @torch.no_grad()
     def sample_plot_image(self):
+        # # Uncomment for notebook execution
         # # Sample noise
         # img_size = 64
         # img = torch.randn((1, 3, img_size, img_size), device=self.device)
@@ -89,7 +90,6 @@ class Trainer():
         # plt.axis('off')
         # num_images = 10
         # stepsize = int(self.T/num_images)
-        pass
         # for i in range(0, self.T)[::-1]:
         #     t = torch.full((1,), i, device=self.device, dtype=torch.long)
         #     img = self.timestep(img, t)
@@ -97,6 +97,7 @@ class Trainer():
         #         plt.subplot(1, num_images, i/stepsize+1)
         #         self.show_tensor_image(img.detach().cpu())
         #     plt.show()  
+        pass
 
 
 
@@ -105,7 +106,7 @@ class Trainer():
             for step, batch in enumerate(tqdm(self.dataloader)):
                 self.optimizer.zero_grad()
 
-                t = torch.randint(0, self.T, (32,)).long().cuda()
+                t = torch.randint(0, self.T, (self.batch_size,)).long().cuda()
                 x_noisy, noise = self.forward_difussion(batch[0], t)
                 noise_pred = self.model(x_noisy.cuda(), t)
                 loss = self.loss(noise, noise_pred)

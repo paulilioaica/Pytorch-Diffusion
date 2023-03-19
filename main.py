@@ -23,6 +23,7 @@ model = SimpleUnet()
 loss = CustomLoss()
 optimizer = Adam(model.parameters(), lr=args.lr)
 
-trainer = Trainer(model=model, dataloader=dataloader, loss=loss, optimizer=optimizer, device=args.device)
+trainer = Trainer(model=model, dataloader=dataloader, loss=loss, optimizer=optimizer, 
+                  device=args.device, batch_size=args.batch_size)
 
 trainer.train(epochs=args.epochs)
