@@ -106,9 +106,9 @@ class Trainer():
             for step, batch in enumerate(tqdm(self.dataloader)):
                 self.optimizer.zero_grad()
 
-                t = torch.randint(0, self.T, (self.batch_size,)).long().cuda()
+                t = torch.randint(0, self.T, (self.batch_size,)).long().to(self.device)
                 x_noisy, noise = self.forward_difussion(batch[0], t)
-                noise_pred = self.model(x_noisy.cuda(), t)
+                noise_pred = self.model(x_noisy.to(self.device), t)
                 loss = self.loss(noise, noise_pred)
                 loss.backward()
                 self.optimizer.step()
